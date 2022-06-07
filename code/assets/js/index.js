@@ -19,17 +19,16 @@ function getUserInfo() {
     $.ajax({
         method: 'GET',
         url: '/my/userinfo',
-        //headers就是请求头配置对象
-        // headers: {
-        //     Authorization: localStorage.getItem('token') || ''
-        // },
+
         success: function(res) {
             if (res.status !== 0) {
-                return layui.layui.msg('获取用户信息失败')
+                return layui.layer.msg('获取用户信息失败')
 
             }
             renderAvatar(res.data)
-        }
+        },
+        //不论请求成功还是失败，都会调用这个函数
+
     })
 }
 
@@ -40,7 +39,7 @@ function renderAvatar(user) {
     var name = user.nickname || user.username
         //设置欢迎的文本
     $('#welcome').html('欢迎&nbsp;&nbsp;' + name)
-        //渲染安用户头像
+        //渲染用户头像
     if (user.user_pic !== null) {
         //渲染图片头像
         $('.layui-nav-img').attr('src', user.user_pic).show()
